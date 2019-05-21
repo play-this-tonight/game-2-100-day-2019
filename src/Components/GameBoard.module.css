@@ -1,0 +1,26 @@
+.gameRow {
+  display: flex;
+  flex-direction: row;
+}
+
+.gameColumn {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  margin: 10px;
+}
+
+.gameColumn:hover {
+  background-color: grey;
+}
+
+.gameDisplay {
+  display: flex;
+}
+
+.nextPiece {
+  width: 100px;
+  height: 100px;
+  border: 2px solid black;
+  margin: 20px;
+}
