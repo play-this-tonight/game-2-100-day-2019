@@ -24,3 +24,8 @@
   border: 2px solid black;
   margin: 20px;
 }
+
+.nextPiece p {
+  font-size: 56px;
+  margin-top: 10px;
+}
