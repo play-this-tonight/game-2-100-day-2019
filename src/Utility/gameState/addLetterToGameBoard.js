@@ -1,5 +1,4 @@
 const addLetterToGameBoard = (letter, index, gameState) => {
-
   if (letter.length != 1) return null;
 
   // Error conditions to handle
@@ -7,12 +6,17 @@ const addLetterToGameBoard = (letter, index, gameState) => {
   const xAxis = index[0];
 
   const gameYAxis = gameState[yAxis];
-  const gameXAxis = gameState[xAxis];
+  if (gameYAxis === undefined) return null;
 
-  if (!gameYAxis) return null;
-  if (!gameXAxis) return null;
+  const gameXAxis = gameYAxis[xAxis];
+  if (gameXAxis === undefined) return null;
 
-  return gameState;
+  if (gameXAxis !== null) return null;
+
+  let newGameState = [...gameState];
+  newGameState[yAxis][xAxis] = letter;
+
+  return newGameState;
 }
 
 export {

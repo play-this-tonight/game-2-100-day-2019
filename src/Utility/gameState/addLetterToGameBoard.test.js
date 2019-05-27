@@ -15,8 +15,8 @@ test("REturns null if y-axis does not exist on the game board", () => {
 
 test("Expects this to return a game object of the same height and length", () => {
   const oldGameBoard = [
-    [1, 2],
-    [3, 4]
+    [null, null],
+    [null, null]
   ];
   const newGameBoard = addLetterToGameBoard('l', [0, 0], oldGameBoard);
 
@@ -31,15 +31,40 @@ test("Fails if the letter length less than 1", () => {
   expect(newGameBoard).toBeNull();
 });
 
-test("Fails if lengt is greater than 1", () => {
+test("Fails if length is greater than 1", () => {
   const newGameBoard = addLetterToGameBoard('123412', [0, 0], [[null]]);
   expect(newGameBoard).toBeNull();
 })
 
-test("Returns the proper gameBoard", () => { })
+test("Fails if the game board already has the letter on that spot", () => {
+  const newGameBoard = addLetterToGameBoard('l', [1, 1], [[null, null], [null, 'l']]);
 
-test("Fails if the game board already has the letter on that spot", () => { })
+  expect(newGameBoard).toBeNull();
+})
 
-test("No other index changes", () => { })
+test("Returns with the correct field changed", () => {
+  const oldGameBoard = [
+    [null, null],
+    [null, null],
+  ];
+  const newIndex = [0, 1];
+  const newLetter = "l";
 
-test("Returns with only one field changed", () => { })
+  const newGameBoard = addLetterToGameBoard(newLetter, newIndex, oldGameBoard);
+
+  expect(newGameBoard[newIndex[1]][newIndex[0]]).toEqual(newLetter);
+});
+
+test("Returns with only one field changed", () => {
+  const oldGameBoard = [
+    ["b", "d"],
+    ["c", null],
+  ];
+  const newIndex = [1, 1];
+  const newLetter = "a";
+
+  const newGameBoard = addLetterToGameBoard(newLetter, newIndex, oldGameBoard);
+
+  expect(newGameBoard[0]).toEqual(oldGameBoard[0]);
+  expect(newGameBoard[1][0]).toEqual(oldGameBoard[1][0]);
+})
