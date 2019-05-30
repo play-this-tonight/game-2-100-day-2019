@@ -1,42 +1,58 @@
-import React from 'react';
-import { gameColumn, gameRow, gameDisplay, nextPiece } from './GameBoard.module.css';
+import React, { useState } from 'react';
+import cx from 'classnames';
+import { gameColumn, gameRow, gameDisplay, nextPiece, piece } from './GameBoard.module.css';
 import { getNextLetter } from '../Utility/randomLetters/index';
+import { generateNewGameBoard } from '../Utility/gameState/index';
+import { addLetterToGameBoard } from '../Utility/gameState/addLetterToGameBoard';
 
+const GameBoard = () => {
+  const [gameBoard, setGameBoard] = useState(generateNewGameBoard(4, 4))
+  const [currentLetter, setCurrentLetter] = useState(getNextLetter());
 
-const gameRows = [0, 1, 2, 3];
-const gameColumns = [0, 1, 2, 3];
+  return (
+    <div className={gameDisplay}>
+      <div>
+        {
+          gameBoard.map((row, yAxis) => (
+            <div
+              className={gameRow}
+              key={`row ${yAxis}`}
+            >
+              {
+                row.map((letter, xAxis) => (
+                  <div
+                    onClick={() => {
+                      const newGameState = addLetterToGameBoard(currentLetter, [xAxis, yAxis], gameBoard);
 
-const GameBoard = () => (
-  <div className={gameDisplay}>
-    <div>
-      {
-        gameRows.map((row) => (
-          <div
-            className={gameRow}
-            key={`row ${row}`}
-          >
-            {
-              gameColumns.map((column) => (
-                <div
-                  onClick={() => { console.log(`Clicked square ${row}, ${column}`) }}
-                  className={gameColumn}
-                  key={`column ${column}`}
-                />
-              ))
-            }
-          </div>
-        ))
-      }
-    </div>
-    <aside>
-      <p>Next Piece</p>
-      <div className={nextPiece}>
-        <p>
-          {getNextLetter()}
-        </p>
+                      if (newGameState === null) return alert('Invalid placement');
+
+                      setGameBoard(newGameState);
+                      setCurrentLetter(getNextLetter());
+                      return;
+                    }}
+                    className={cx(gameColumn, piece)}
+                    key={`column ${xAxis}`}
+                  >
+                    <p>
+                      {letter}
+                    </p>
+                  </div>
+                ))
+              }
+            </div>
+          ))
+        }
       </div>
-    </aside>
-  </div>
-);
+      <aside>
+        <p>Next Piece</p>
+        <div className={cx(nextPiece, piece)}>
+          <p>
+            {currentLetter}
+          </p>
+        </div>
+      </aside>
+    </div>
+  )
+};
 
 export default GameBoard;

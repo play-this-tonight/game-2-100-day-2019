@@ -1,16 +1,5 @@
-import { addLetterToGameBoard } from './addLetterToGameBoard';
+// import { addLetterToGameBoard } from './addLetterToGameBoard';
 // Parts of the Game State
-
-// Game board
-//letters/words combo
-// ability to set Letters to the board
-
-const currentBoard = [
-  [null, null, null, null],
-  [null, null, null, null],
-  [null, null, null, null],
-  [null, null, null, null],
-];
 
 
 const generateNewGameBoard = (height, width) => {

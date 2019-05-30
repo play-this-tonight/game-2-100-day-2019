@@ -1,4 +1,4 @@
-import { getNextLetter, weightedLetters } from './randomLetters';
+import { getNextLetter, weightedLetters } from '.';
 
 test("Expect the response to be a string", () => {
   expect(typeof getNextLetter()).toEqual('string');

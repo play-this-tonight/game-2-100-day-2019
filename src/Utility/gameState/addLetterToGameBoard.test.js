@@ -1,13 +1,13 @@
 import { addLetterToGameBoard } from './addLetterToGameBoard';
 
 
-test("REturns null if x-axis does not exist on the game board", () => {
+test("Returns null if x-axis does not exist on the game board", () => {
   const newGameBoard = addLetterToGameBoard('l', [0, 2], [[null, null]]);
 
   expect(newGameBoard).toEqual(null);
 });
 
-test("REturns null if y-axis does not exist on the game board", () => {
+test("Returns null if y-axis does not exist on the game board", () => {
   const newGameBoard = addLetterToGameBoard('l', [2, 0], [[null, null]]);
 
   expect(newGameBoard).toEqual(null);
@@ -59,6 +59,7 @@ test("Returns with only one field changed", () => {
   const oldGameBoard = [
     ["b", "d"],
     ["c", null],
+    ["c", "f"],
   ];
   const newIndex = [1, 1];
   const newLetter = "a";
