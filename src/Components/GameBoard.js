@@ -1,58 +1,55 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { getLettersFromSelection } from '../Utility/gameState/gameBoardUtilities';
+import { gameColumn, gameRow, piece, selected, lastHighlighted } from './GameState.module.css';
 import cx from 'classnames';
-import { gameColumn, gameRow, gameDisplay, nextPiece, piece } from './GameBoard.module.css';
-import { getNextLetter } from '../Utility/randomLetters/index';
-import { generateNewGameBoard } from '../Utility/gameState/index';
-import { addLetterToGameBoard } from '../Utility/gameState/addLetterToGameBoard';
+import { attachGameConsumer } from './GameState';
 
-const GameBoard = () => {
-  const [gameBoard, setGameBoard] = useState(generateNewGameBoard(4, 4))
-  const [currentLetter, setCurrentLetter] = useState(getNextLetter());
+const getSelectedClasses = (selectedSet, coord) => {
+  const selectedArray = [...selectedSet];
 
+  if (!selectedArray.length) return {};
+
+  return {
+    [selected]: selectedSet.has(coord),
+    [lastHighlighted]: selectedArray.slice(-1)[0] === coord
+  }
+}
+
+const GameBoard = ({ selectedIndices, selectPiece, addLetter, gameBoard }) => {
   return (
-    <div className={gameDisplay}>
-      <div>
-        {
-          gameBoard.map((row, yAxis) => (
-            <div
-              className={gameRow}
-              key={`row ${yAxis}`}
-            >
-              {
-                row.map((letter, xAxis) => (
-                  <div
-                    onClick={() => {
-                      const newGameState = addLetterToGameBoard(currentLetter, [xAxis, yAxis], gameBoard);
+    <div>
+      {
+        gameBoard.map((row, yAxis) => (
+          <div
+            className={gameRow}
+            key={`row ${yAxis}`}
+          >
+            {
+              row.map((letter, xAxis) => (
+                <div
+                  onClick={() => {
+                    const letters = getLettersFromSelection([[xAxis, yAxis]], gameBoard);
 
-                      if (newGameState === null) return alert('Invalid placement');
+                    if (letters.length !== 0) {
+                      return selectPiece(xAxis, yAxis);
+                    }
 
-                      setGameBoard(newGameState);
-                      setCurrentLetter(getNextLetter());
-                      return;
-                    }}
-                    className={cx(gameColumn, piece)}
-                    key={`column ${xAxis}`}
-                  >
-                    <p>
-                      {letter}
-                    </p>
-                  </div>
-                ))
-              }
-            </div>
-          ))
-        }
-      </div>
-      <aside>
-        <p>Next Piece</p>
-        <div className={cx(nextPiece, piece)}>
-          <p>
-            {currentLetter}
-          </p>
-        </div>
-      </aside>
+                    return addLetter([xAxis, yAxis], gameBoard);
+                  }}
+                  className={cx(gameColumn, piece, getSelectedClasses(selectedIndices, `${xAxis}, ${yAxis}`))}
+                  key={`column ${xAxis}`}
+                >
+                  <p>
+                    {letter}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        ))
+      }
     </div>
   )
-};
+}
 
-export default GameBoard;
+export default attachGameConsumer(GameBoard);

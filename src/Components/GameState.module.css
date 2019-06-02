@@ -14,7 +14,7 @@
   background-color: grey;
 }
 
-.gameDisplay {
+.gameDisplayStyle {
   display: flex;
 }
 
@@ -26,6 +26,15 @@
 }
 
 .piece p {
-  font-size: 56px;
-  margin-top: 10px;
+  font-size: 36px;
+  margin-top: 20px;
+  overflow-wrap: break-word;
+}
+
+.selected {
+  background-color: lightcoral;
+}
+
+.lastHighlighted {
+  border: 3px solid darkblue;
 }
