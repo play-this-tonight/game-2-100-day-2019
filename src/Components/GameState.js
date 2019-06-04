@@ -1,5 +1,5 @@
 import React, { useState, createContext } from 'react';
-import { getNextLetter } from '../Utility/randomLetters/index';
+import { getNextLetter } from '../Utility/LettersAndWords/index';
 import { generateNewGameBoard } from '../Utility/gameState/index';
 import { addLetterToGameBoard } from '../Utility/gameState/addLetterToGameBoard';
 import { removeFromGameBoard } from '../Utility/gameState/deleteWord';
@@ -8,7 +8,7 @@ import { combineGameBoardPieces, sortCoordinates } from '../Utility/gameState/co
 const GameContext = createContext();
 
 const GameProvider = ({ children }) => {
-  const [gameBoard, setGameBoard] = useState(generateNewGameBoard(4, 4))
+  const [gameBoard, setGameBoard] = useState(generateNewGameBoard(5, 5))
   const [currentLetter, setCurrentLetter] = useState(getNextLetter());
   const [selectedIndices, setSelectedIndex] = useState(new Set());
 

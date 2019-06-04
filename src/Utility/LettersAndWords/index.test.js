@@ -1,4 +1,4 @@
-import { getNextLetter, weightedLetters } from '.';
+import { getNextLetter, weightedLetters, scoreWord } from '.';
 
 test("Expect the response to be a string", () => {
   expect(typeof getNextLetter()).toEqual('string');
@@ -20,3 +20,12 @@ test("Should create a string of length 9", () => {
 
   expect(accumulatorString.length).toEqual(9);
 })
+
+test('ScoreWord returns 0 if the string is empty', () => {
+  expect(scoreWord('')).toEqual(0);
+});
+
+test('ScoreWord properly counts up the letter ', () => {
+  expect(scoreWord('panoply')).toEqual(14);
+});
+

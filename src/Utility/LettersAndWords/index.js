@@ -39,8 +39,20 @@ const getNextLetter = () => {
   return weightedRand2(weightedLetters);
 };
 
+const getLetterScore = (letterToFind) => {
+  const { score } = weightedLetters.find(({ letter }) => letter === letterToFind);
+
+  return score;
+}
+
+const scoreWord = (word) => {
+  return word.split('')
+    .reduce((score, letter) => score += getLetterScore(letter), 0);
+}
+
 export {
   getNextLetter,
+  scoreWord,
   weightedLetters,
 };
 
