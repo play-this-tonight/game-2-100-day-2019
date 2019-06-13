@@ -1,3 +1,5 @@
+
+export const ERROR_INVALID_COORDINATES = 'Coordinates given are not valid for the game board';
 export const ERROR_NOT_SINGLE_ROW_COLUMN = 'The piece selected are not in a single or or a single column';
 export const ERROR_NON_SEQUENTIAL = 'The pieces selected are not in adjacent to one another';
 export const ERROR_NULL_SELECTED = 'A null piece was selected';

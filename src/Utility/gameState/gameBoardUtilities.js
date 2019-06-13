@@ -32,12 +32,34 @@ const inCoordinates = (coordinates, point) => {
 }
 
 const sortCoordinates = (coordinates) => {
-  return [...coordinates].sort((a, b) => {
-    const sumA = a.reduce((sum, val) => val + sum, 0);
-    const sumB = b.reduce((sum, val) => val + sum, 0);
+  const copiedCoordinates = [...coordinates];
 
-    return sumA - sumB;
+  const baseLength = copiedCoordinates.reduce( (maxLength, coordinate) => {
+    return Math.max(maxLength, (coordinate[0] + 1));
+  }, 0);
+
+  return copiedCoordinates.sort( (a, b) => {  
+    const aValue = a[0] + (a[1] * baseLength);
+    const bValue = b[0] + (b[1] * baseLength)
+
+    return aValue - bValue;
   });
+}
+
+const getXAxisAt = (gameBoard, yAxis) => {
+  if (!gameBoard[yAxis]) return [];
+
+  return gameBoard[yAxis];
+}
+
+const getYAxisAt = (gameBoard, xAxis) => {
+  const hasXAxis = gameBoard.filter( (gameRow) => {
+    return gameRow.length >= xAxis + 1;
+  });
+
+  if (hasXAxis.length !== gameBoard.length) return [];
+
+  return gameBoard.map( (gameRow) => gameRow[xAxis]);
 }
 
 export {
@@ -45,4 +67,6 @@ export {
   getLettersFromSelection,
   inCoordinates,
   sortCoordinates,
+  getXAxisAt,
+  getYAxisAt
 };
