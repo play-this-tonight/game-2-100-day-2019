@@ -29,12 +29,16 @@ const getCoordinateSetToCombine = (initialCoordinates, gameBoard) => {
   const ySet = crawlAxisReturnIndices(getYAxisAt(gameBoard, xCoord), xCoord)
     .map( (yIndex) => [xCoord, yIndex]);
 
-  return xSet.concat(ySet).filter( (set, ind, arr) => arr.indexOf(set) === ind );
+  return xSet
+    .concat(ySet)
+    // Filtersout the initial coordinates from both sets, and adds them back in
+    .filter( (coordinate) => coordinate[0] !== xCoord || coordinate[1] !== yCoord )
+    .concat([initialCoordinates]);
 }
 
 const combineGameBoardPieces = (coordinates, gameBoard) => {
 
-  if (coordinates.length < 2) return gameBoard;
+  if (coordinates.length === 0) return ERROR_NULL_SELECTED;
 
   const [xAxis, yAxis] = mapToRowAndCol(coordinates);
   if (!coordinatesAreSequential(xAxis) || !coordinatesAreSequential(yAxis)) return ERROR_NON_SEQUENTIAL;
@@ -50,13 +54,10 @@ const combineGameBoardPieces = (coordinates, gameBoard) => {
    */
   const sortedCoordinates = sortCoordinates(coordinates);
   const letters = getLettersFromSelection(sortedCoordinates, gameBoard);
-  console.log(letters);
 
   if (letters.length !== coordinates.length) return ERROR_NULL_SELECTED;
   if (!lettersHaveSameLength(letters)) return ERROR_DIFFERENT_LENGTHS;
   const initialCoordinates = coordinates.slice(-1)[0];
-
-  console.log(initialCoordinates)
 
   return gameBoard.map((gameRow, yAxis) => {
     return gameRow.map((value, xAxis) => {

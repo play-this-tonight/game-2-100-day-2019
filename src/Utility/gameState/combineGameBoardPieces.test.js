@@ -57,7 +57,7 @@ test("Fails to select if one of the selected elements does not exist", () => {
 })
 
 test("Fails if coordinates are empty", () => {
-  expect(combineGameBoardPieces([], [[null]])).toBeNull();
+  expect(combineGameBoardPieces([], [[null]])).toEqual(ERROR_NULL_SELECTED);
 })
 
 test("Sets to the last selected coordinate", () => {
@@ -137,8 +137,7 @@ test("Does not duplicate the initial selected index", () => {
   const gameBoard = [ ["l", "y"]];
 
   const coordinateSet = getCoordinateSetToCombine(initCoordinates, gameBoard);
-
-  const filteredCoordinates = coordinateSet.filter( (coord) => coord === initCoordinates);
+  const filteredCoordinates = coordinateSet.filter( (coord) => coord[0] === initCoordinates[0] && coord[1] === initCoordinates[1]);
 
   expect(filteredCoordinates).toHaveLength(1);
 })

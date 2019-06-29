@@ -16,7 +16,6 @@ const splitIntoContiguousSets = (axisArray) => {
     }
 
     currentContiguousLetters.push(i);
-    length++;
     i++;
   }
 

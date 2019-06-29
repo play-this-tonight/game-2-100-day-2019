@@ -15,19 +15,43 @@ const addLetterToGameBoard = (letter, coordinate, gameState) => {
 
   if (gameXAxis !== null) return null;
 
-  const newGameState = gameState.map((row, currentYAxis) => {
+  return gameState.map((row, currentYAxis) => {
     return row.map((col, currentXAxis) => {
       if (currentXAxis === xAxis && currentYAxis === yAxis) return letter;
       return col;
     })
   });
-
-  // Ugh this is fubar 
-
-  const coordinatesToCombine = getCoordinateSetToCombine(coordinate, newGameState);
-
-  return combineGameBoardPieces(coordinatesToCombine, newGameState);
 }
+
+// const addLetterAndCombineLetters = (letter, coordinate, gameState) => {
+//   if (letter.length !== 1) return null;
+
+//   // Error conditions to handle
+//   const yAxis = coordinate[1];
+//   const xAxis = coordinate[0];
+
+//   const gameYAxis = gameState[yAxis];
+//   if (gameYAxis === undefined) return null;
+
+//   const gameXAxis = gameYAxis[xAxis];
+//   if (gameXAxis === undefined) return null;
+
+//   if (gameXAxis !== null) return null;
+
+//   const newGameState = gameState.map((row, currentYAxis) => {
+//     return row.map((col, currentXAxis) => {
+//       if (currentXAxis === xAxis && currentYAxis === yAxis) return letter;
+//       return col;
+//     })
+//   });
+
+//   // Ugh this is fubar 
+
+//   const coordinatesToCombine = getCoordinateSetToCombine(coordinate, newGameState);
+
+//   return combineGameBoardPieces(coordinatesToCombine, newGameState);
+// }
+
 
 export {
   addLetterToGameBoard,
